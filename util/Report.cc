@@ -66,16 +66,17 @@ Report::printString(const char *buffer,
                     size_t length)
 {
   size_t ret = length;
-  if (redirect_to_string_)
-    redirectStringPrint(buffer, length);
-  else {
-    if (redirect_stream_)
-      ret = min(ret, fwrite(buffer, sizeof(char), length, redirect_stream_));
-    else
-      ret = min(ret, printConsole(buffer, length));
-    if (log_stream_)
-      ret = min(ret, fwrite(buffer, sizeof(char), length, log_stream_));
-  }
+  printf("%s", buffer);
+  // if (redirect_to_string_)
+  //   redirectStringPrint(buffer, length);
+  // else {
+  //   if (redirect_stream_)
+  //     ret = min(ret, fwrite(buffer, sizeof(char), length, redirect_stream_));
+  //   else
+  //     ret = min(ret, printConsole(buffer, length));
+  //   if (log_stream_)
+  //     ret = min(ret, fwrite(buffer, sizeof(char), length, log_stream_));
+  // }
   return ret;
 }
 
