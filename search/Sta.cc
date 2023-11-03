@@ -366,7 +366,7 @@ Sta::updateComponentsState()
 void
 Sta::makeReport()
 {
-  report_  = nullptr;//= new ReportTcl(); // No need Tcl Report for ESDB
+  report_ = new ReportTcl();
 }
 
 void
