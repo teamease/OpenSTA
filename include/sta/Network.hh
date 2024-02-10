@@ -508,7 +508,7 @@ public:
 		       Net *net) = 0;
   // makePin/connectPin replaced by connect.
   virtual void connectPin(Pin *pin,
-			  Net *net) __attribute__ ((deprecated));
+			  Net *net) /*__attribute__ ((deprecated))*/;
   // Disconnect pin from net.
   virtual void disconnectPin(Pin *pin) = 0;
   virtual void deletePin(Pin *pin) = 0;
