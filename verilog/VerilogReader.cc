@@ -1753,30 +1753,30 @@ VerilogReader::linkNetwork(const char *top_cell_name,
       VerilogBindingTbl bindings(zero_net_name_, one_net_name_);
       VerilogNetSeq::Iterator port_iter(module->ports());
       while (port_iter.hasNext()) {
-	VerilogNet *mod_port = port_iter.next();
-	VerilogNetNameIterator *net_name_iter = mod_port->nameIterator(module,
-								       this);
-	while (net_name_iter->hasNext()) {
-	  const char *net_name = net_name_iter->next();
-	  Port *port = network_->findPort(top_cell, net_name);
-	  Net *net = bindings.ensureNetBinding(net_name, top_instance, network_);
-	  // Guard against repeated port name.
-	  if (network_->findPin(top_instance, port) == nullptr) {
-	    Pin *pin = network_->makePin(top_instance, port, nullptr);
-	    network_->makeTerm(pin, net);
-	  }
-	}
-	delete net_name_iter;
+        VerilogNet *mod_port = port_iter.next();
+        VerilogNetNameIterator *net_name_iter = mod_port->nameIterator(module,
+                            this);
+        while (net_name_iter->hasNext()) {
+          const char *net_name = net_name_iter->next();
+          Port *port = network_->findPort(top_cell, net_name);
+          Net *net = bindings.ensureNetBinding(net_name, top_instance, network_);
+          // Guard against repeated port name.
+          if (network_->findPin(top_instance, port) == nullptr) {
+            Pin *pin = network_->makePin(top_instance, port, nullptr);
+            network_->makeTerm(pin, net);
+          }
+        }
+        delete net_name_iter;
       }
       makeModuleInstBody(module, top_instance, &bindings, make_black_boxes);
       bool errors = reportLinkErrors(report);
       deleteModules();
       if (errors) {
-	network_->deleteInstance(top_instance);
-	return nullptr;
+        network_->deleteInstance(top_instance);
+        return nullptr;
       }
       else
-	return top_instance;
+	      return top_instance;
     }
     else {
       report->error(274, "%s is not a verilog module.", top_cell_name);
@@ -1842,10 +1842,11 @@ VerilogReader::makeModuleInstNetwork(VerilogModuleInst *mod_inst,
     string inst_vname = verilogName(mod_inst);
     if (make_black_boxes) {
       cell = makeBlackBox(mod_inst, parent_module);
-      linkWarn(198, parent_module->filename(), mod_inst->line(),
-	       "module %s not found. Creating black box for %s.",
-	       mod_inst->moduleName(),
-	       inst_vname.c_str());
+      // Commented out by A7EN, later link design will resolve these, no need to echo warnings
+      // linkWarn(198, parent_module->filename(), mod_inst->line(),
+	    //    "module %s not found. Creating black box for %s.",
+	    //    mod_inst->moduleName(),
+	    //    inst_vname.c_str());
     }
     else
       linkError(199, parent_module->filename(), mod_inst->line(),
