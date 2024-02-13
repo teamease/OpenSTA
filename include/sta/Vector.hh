@@ -30,6 +30,11 @@ public:
   Vector(size_t n) : std::vector<OBJ>(n) {}
   Vector(size_t n, const OBJ &obj) : std::vector<OBJ>(n, obj) {}
 
+  ~Vector()
+  {
+    
+  }
+
   // Erase an object from the vector (slow).
   void
   eraseObject(OBJ obj)
@@ -134,5 +139,4 @@ sort(Vector<OBJ> *seq, SortCmp cmp)
   // when optimization is turned on in gcc.
   std::stable_sort(seq->begin(), seq->end(), cmp);
 }
-
 } // namespace sta
