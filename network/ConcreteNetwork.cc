@@ -298,6 +298,26 @@ ConcreteNetwork::topInstance() const
   return top_instance_;
 }
 
+Instance *
+ConcreteNetwork::rootInstance() const
+{
+  return root_instance_;
+}
+
+void
+ConcreteNetwork::switchTopInstance(const char *name)
+{
+  Instance *inst = findInstance(name);
+  if (inst == nullptr) return;
+  top_instance_ = inst;
+}
+
+void
+ConcreteNetwork::switchTopInstance()
+{
+  top_instance_ = root_instance_;
+}
+
 ////////////////////////////////////////////////////////////////
 
 class ConcreteLibraryIterator1 : public Iterator<Library*>
@@ -1901,6 +1921,7 @@ ConcreteNetwork::linkNetwork(const char *top_cell_name,
     clearConstantNets();
     deleteTopInstance();
     top_instance_ = link_func_(top_cell_name, make_black_boxes, report, this);
+    root_instance_ = top_instance_;
     if (top_instance_)
       checkNetworkLibertyCorners();
     return top_instance_ != nullptr;

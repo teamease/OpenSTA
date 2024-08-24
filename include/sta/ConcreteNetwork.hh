@@ -60,6 +60,7 @@ public:
                    bool make_black_boxes,
                    Report *report) override;
   Instance *topInstance() const override;
+  Instance *rootInstance() const;
 
   const char *name(const Library *library) const override;
   ObjectId id(const Library *library) const override;
@@ -231,6 +232,8 @@ public:
 
   // Used by external tools.
   void setTopInstance(Instance *top_inst);
+  void switchTopInstance();
+  void switchTopInstance(const char *name);
   void deleteTopInstance();
 
   using Network::netIterator;
@@ -261,6 +264,7 @@ protected:
   ConcreteLibrarySeq library_seq_;
   ConcreteLibraryMap library_map_;
   Instance *top_instance_;
+  Instance *root_instance_;
   NetSet constant_nets_[2];  // LogicValue::zero/one
   LinkNetworkFunc *link_func_;
   CellNetworkViewMap cell_network_view_map_;
