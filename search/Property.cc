@@ -851,6 +851,8 @@ getProperty(const Instance *inst,
     return PropertyValue(network->pathName(inst));
   else if (stringEqual(property, "ref_name"))
     return PropertyValue(network->name(network->cell(inst)));
+  else if (stringEqual(property, "is_hier"))
+    return PropertyValue(network->isHierarchical(inst));
   else if (stringEqual(property, "liberty_cell"))
     return PropertyValue(network->libertyCell(inst));
   else if (stringEqual(property, "cell"))
