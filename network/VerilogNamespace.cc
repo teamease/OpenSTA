@@ -1,5 +1,5 @@
 // OpenSTA, Static Timing Analyzer
-// Copyright (c) 2023, Parallax Software, Inc.
+// Copyright (c) 2024, Parallax Software, Inc.
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -31,6 +31,12 @@ staToVerilog2(const char *sta_name,
               const char escape);
 static string
 verilogToSta(const char *verilog_name);
+
+string
+cellVerilogName(const char *sta_name)
+{
+  return staToVerilog(sta_name, '\\');
+}
 
 string
 instanceVerilogName(const char *sta_name,
@@ -180,7 +186,7 @@ verilogToSta(const char *verilog_name)
     // Ignore leading '\'.
     verilog_name = &verilog_name[1];
     size_t verilog_name_length = strlen(verilog_name);
-    if (verilog_name[verilog_name_length - 1] == ' ')
+    if (isspace(verilog_name[verilog_name_length - 1]))
       verilog_name_length--;
     string sta_name;
     for (size_t i = 0; i < verilog_name_length; i++) {
