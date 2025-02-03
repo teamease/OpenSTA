@@ -333,6 +333,7 @@ void
 VerilogWriter::writeChild(const Instance *child)
 {
   Cell *child_cell = network_->cell(child);
+  if (child_cell == nullptr) return;
   if (!remove_cells_.hasKey(child_cell)) {
     const char *child_name = network_->name(child);
     string child_vname = instanceVerilogName(child_name, network_->pathEscape());
@@ -487,6 +488,7 @@ VerilogWriter::findChildNCcount(const Instance *child)
 {
   int nc_count = 0;
   Cell *child_cell = network_->cell(child);
+  if (child_cell == nullptr) return 0;
   if (!remove_cells_.hasKey(child_cell)) {
     CellPortIterator *port_iter = network_->portIterator(child_cell);
     while (port_iter->hasNext()) {
